@@ -1,2 +1,59 @@
 #include "seqpair.h"
+///
+/// \param head : the head of the linked list
+/// \param numpoints : the number of nodes
+/// \param seqPair1 : the horizontal sequence pair
+/// \param seqPair2 : the vertical sequence pair
+void create_Graphs(Node * head, int numpoints, int * seqPair1, int * seqPair2)
+{
+    //arrHoriz[0] is the top horizontal row
+    //arrHoriz[1] is the bottom horizontal row
+    Node * arrHoriz [2];
+    int i = 1;
+    Node * temp = head;
+    while(temp->ID != seqPair1[i] && temp->next != NULL){
+        temp = temp->next;
+    }
+    arrHoriz[0] = calloc(1,sizeof(Node));
+    arrHoriz[0]->height = temp->height;
+    arrHoriz[0]->width = temp->width;
+    arrHoriz[0]->ID = temp->ID;
+    Node * zeroEnd = arrHoriz[0];
+    i++;
+    temp = head;
+    while(temp->ID != seqPair1[i] && temp->next != NULL){
+        temp = temp->next;
+    }
+    arrHoriz[1] = calloc(1,sizeof(Node));
+    arrHoriz[1]->height = temp->height;
+    arrHoriz[1]->width = temp->width;
+    arrHoriz[1]->ID = temp->ID;
+    Node * oneEnd = arrHoriz[1];
+    i++;
+    while(i < numpoints - 1){
+        temp = head;
+        while(temp->ID != seqPair1[i] && temp->next != NULL){
+            temp = temp->next;
+        }
+        Node * newNode = calloc(1,sizeof(Node));
+        newNode->height = temp->height;
+        newNode->width = temp->width;
+        newNode->ID = temp->ID;
+        zeroEnd->next = newNode;
+        zeroEnd = newNode;
+        i++;
+        temp = head;
+        while(temp->ID != seqPair1[i] && temp->next != NULL){
+            temp = temp->next;
+        }
+        Node * new2 = calloc(1,sizeof(Node));
+        new2->height = temp->height;
+        new2->width = temp->width;
+        new2->ID = temp->ID;
+        oneEnd->next = new2;
+        oneEnd = new2;
+        i++;
+    }
 
+
+}

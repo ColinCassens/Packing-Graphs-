@@ -14,11 +14,13 @@ typedef struct _Node{
     int ID;
     double x;
     double y;
+    double height;
+    double width;
 }Node;
 
 int main(int argc, char ** argv);
 Node * loadFromFile(FILE * infile, int * numpoints);
 int * loadSEQ(FILE * INFILE, int numpoints);
-
+void create_Graphs(Node * head, int numpoints, int * seqPair1, int * seqPair2);
 
 #endif

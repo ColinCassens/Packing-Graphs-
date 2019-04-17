@@ -13,9 +13,7 @@ int main(int argc, char ** argv)
     Node * head = loadFromFile(infile, &numpoints);
     int * seqPair1 = loadSEQ(infile, numpoints);
     int * seqPair2 = loadSEQ(infile, numpoints);
-    printf("%d",seqPair1[0]);
-    printf(" %d",seqPair2[0]);
-    head->ID = 8;
+    create_Graphs(head, numpoints, seqPair1, seqPair2);
     return EXIT_SUCCESS;
 }
 
@@ -25,7 +23,6 @@ Node * loadFromFile(FILE * infile, int * num_points) {
     if (num == 0) {
         return NULL;
     }
-
     //Read in all of the nodes and add them to the linked list
     int i = 1;
     Node * head;
@@ -33,26 +30,24 @@ Node * loadFromFile(FILE * infile, int * num_points) {
     while (i <= *num_points) {
         if (i == 1) {
             head = calloc(1, sizeof(Node));
-            fscanf(infile, "%d(%le,%le)\n", &head->ID, &head->x, &head->y);
+            fscanf(infile, "%d(%le,%le)\n", &head->ID, &head->width, &head->height);
             temp = calloc(1, sizeof(Node));
-            fscanf(infile, "%d(%le,%le)\n", &temp->ID, &temp->x, &temp->y);
+            fscanf(infile, "%d(%le,%le)\n", &temp->ID, &temp->width, &temp->height);
             head->next = temp;
             i++;
         } else {
             Node *next = calloc(1, sizeof(Node));
-            fscanf(infile, "%d(%le,%le)\n", &next->ID, &next->x, &next->y);
+            fscanf(infile, "%d(%le,%le)\n", &next->ID, &next->width, &next->height);
             temp->next = next;
             temp = next;
         }
         i++;
     }
-
     return head;
 }
 
 int * loadSEQ(FILE * infile, int numpoints)
 {
-
     //READ IN PART 3
     int i = 0;
     int * seqPair = calloc(numpoints, sizeof(int));
@@ -64,7 +59,6 @@ int * loadSEQ(FILE * infile, int numpoints)
         fscanf(infile, "%d", &seqPair[i]);
         i++;
     }
-
     //CLOSE THE FILE AND RETURN
     return seqPair;
 }

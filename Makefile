@@ -3,7 +3,7 @@ WARNING = -Wall -Wshadow --pedantic
 ERROR = -Wvla -Werror
 VAL = valgrind --tool=memcheck --log-file=valgrind.log --leak-check=full --show-reachable=yes --verbose  --track-origins=yes
 TESTFLAGS = -DTEST_MAIN
-SRCS = pa6.c #UPDATE WITH MORE FILES
+SRCS = pa6.c seqpair.c #UPDATE WITH MORE FILES
 OBJS = $(SRCS:%.c=%.o)
 
 PA6: $(OBJS)
