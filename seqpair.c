@@ -56,4 +56,31 @@ void create_Graphs(Node * head, int numpoints, int * seqPair1, int * seqPair2)
     }
 
 
+    //CREATE THE VERTICAL ARRAY
+    Node ** arrVert = calloc((numpoints-2)/2, sizeof(Node));
+    i = 1;
+    int x = 0;
+    while(x < (numpoints - 2)/2){
+        temp = head;
+        while(temp->ID != seqPair2[i] && temp->next != NULL){
+            temp = temp->next;
+        }
+        arrVert[x] = calloc(1,sizeof(Node));
+        arrVert[x]->height = temp->height;
+        arrVert[x]->width = temp->width;
+        arrVert[x]->ID = temp->ID;
+        //arrVert[x] = temp;
+        i++;
+        temp = head;
+        while(temp->ID != seqPair2[i] && temp->next != NULL){
+            temp = temp->next;
+        }
+        Node * temp2 = calloc(1, sizeof(Node));
+        temp2->ID = temp->ID;
+        temp2->height = temp->height;
+        temp2->width = temp->width;
+        arrVert[x]->next = temp2;
+        i++;
+        x++;
+    }
 }
