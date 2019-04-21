@@ -1,6 +1,6 @@
 #include "seqpair.h"
 
-Hash ** Create_Hash(int * seqPair1, int * seqPair2, int numpoints)
+Hash ** Create_Hash(int * seqPair1, int * seqPair2, int numpoints, Node * head)
 {
     Hash ** HashTable = calloc(numpoints+1, sizeof(Hash));
     int x = 0;
@@ -36,11 +36,6 @@ void Create_AdjList(Node * Head, Hash ** HashTable, int numpoints)
         HashTable[value]->rightof = NULL;
         HashTable[value]->above = NULL;
 
-        /// Dont NEED
-        HashTable[value]->leftof = NULL;
-        HashTable[value]->below = NULL;
-        ///
-
         for(comp = 1; comp <= numpoints; comp++){
             if(HashTable[value]->index1 < HashTable[comp]->index1 && HashTable[value]->index2 < HashTable[comp]->index2){
                 //The Comp is to the right of Value
@@ -49,16 +44,6 @@ void Create_AdjList(Node * Head, Hash ** HashTable, int numpoints)
                 temp->next = HashTable[value]->rightof;
                 HashTable[value]->rightof = temp;
             }
-            //////
-            //Dont Need
-            if(HashTable[value]->index1 > HashTable[comp]->index1 && HashTable[value->index2 > HashTable[comp]->index2]){
-                //The Comp is to the left of Value
-                HolderNode * temp = calloc(1,sizeof(HolderNode));
-                temp->value = comp;
-                temp->next = HashTable[value]->leftof;
-                HashTable[value]->leftof = temp;
-            }
-            ///
 
             if(HashTable[value]->index1 > HashTable[comp]->index1 && HashTable[value]->index2 < HashTable[comp]->index2){
                 //The Comp is above Value
@@ -75,17 +60,34 @@ void Find_Location(Hash ** HashTable, int * seqPair1, int * seqPair2, int numpoi
 {
     //HCG FIRST NAVIGATE USING seqPair1, if nothing points to it x = 0
     //CALCULATE THIS BY USING THE SEQPAIR1, REPLACE THE NEXT NODE WITH THE MAXX OF THE NODES POINTING TOO IT PLUS THE WIDTH OF THAT NODE
-    for(int x = 0; x <= numpoints; x++) {
-        value = seqPair1[x];
+    for(int x = 0; x < numpoints; x++) {
+        int value = seqPair1[x];
         if (HashTable[value]->rightof != NULL) {
-            curx = HashTable[value]->x;
+            double curx = HashTable[value]->x + HashTable[value]->width;
             HolderNode *temp = HashTable[value]->rightof;
-            int maxx = HashTable[temp->value]->x;
+            if(curx > HashTable[temp->value]->x){
+                HashTable[temp->value]->x = curx;
+            }
             while (temp->next != NULL) {
                 temp = temp->next;
-
+                if(curx > HashTable[temp->value]->x){
+                    HashTable[temp->value]->x = curx;
+                }
             }
-
+        }
+        value = seqPair2[x];
+        if(HashTable[value]->above != NULL){
+            double cury = HashTable[value]->y + HashTable[value]->height;
+            HolderNode * temp = HashTable[value]->above;
+            if(cury > HashTable[temp->value]->y){
+                HashTable[temp->value]->y = cury;
+            }
+            while(temp->next != NULL){
+                temp = temp->next;
+                if(cury > HashTable[temp->value]->y){
+                    HashTable[temp->value]->y = cury;
+                }
+            }
         }
     }
 }

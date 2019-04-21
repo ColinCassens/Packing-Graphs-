@@ -13,7 +13,7 @@ int main(int argc, char ** argv)
     Node * head = loadFromFile(infile, &numpoints);
     int * seqPair1 = loadSEQ(infile, numpoints);
     int * seqPair2 = loadSEQ(infile, numpoints);
-    Hash ** HashTable = Create_Hash(seqPair1, seqPair2, numpoints);
+    Hash ** HashTable = Create_Hash(seqPair1, seqPair2, numpoints, head);
     Create_AdjList(head, HashTable, numpoints);
     Find_Location(HashTable, seqPair1, seqPair2, numpoints);
     return EXIT_SUCCESS;
