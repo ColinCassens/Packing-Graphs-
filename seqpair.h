@@ -40,5 +40,6 @@ int * loadSEQ(FILE * INFILE, int numpoints);
 Hash ** Create_Hash(int * seqPair1, int * seqPair2, int numpoints, Node * head);
 void Create_AdjList(Node * Head, Hash ** HashTable, int numpoints);
 void Find_Location(Hash ** HashTable, int * seqPair1, int * seqPair2, int numpoints);
+void writeToFile(FILE * outfile, Hash ** HashTable, int numpoints);
 
 #endif

@@ -16,6 +16,10 @@ int main(int argc, char ** argv)
     Hash ** HashTable = Create_Hash(seqPair1, seqPair2, numpoints, head);
     Create_AdjList(head, HashTable, numpoints);
     Find_Location(HashTable, seqPair1, seqPair2, numpoints);
+    FILE * outfile = fopen(argv[2], "w");
+    writeToFile(outfile, HashTable, numpoints);
+    fclose(outfile);
+    fclose(infile);
     return EXIT_SUCCESS;
 }
 
@@ -61,6 +65,12 @@ int * loadSEQ(FILE * infile, int numpoints)
         fscanf(infile, "%d", &seqPair[i]);
         i++;
     }
-    //CLOSE THE FILE AND RETURN
     return seqPair;
+}
+
+void writeToFile(FILE * outfile, Hash ** HashTable, int numpoints)
+{
+    for(int i = 1; i<=numpoints; i++){
+        fprintf(outfile,"%d(%le,%le)\n", i, HashTable[i]->x, HashTable[i]->y);
+    }
 }

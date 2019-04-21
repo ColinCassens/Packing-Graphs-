@@ -15,6 +15,28 @@ PA6: $(OBJS)
 VAL: pa6
 	$(VAL) ./pa6
 
+test1: pa6
+	./pa6 examples/r8.sp r8.pck
+	diff r8.pck examples/r8.pck
+
+test2: pa6
+	./pa6 examples/r100.sp r100.pck
+	diff r100.pck examples/r100.pck
+
+test3: pa6
+	./pa6 examples/r100h.sp r100h.pck
+	diff r100h.pck examples/r100h.pck
+
+test4: pa6
+	./pa6 examples/r100v.sp r100v.pck
+	diff r100v.pck examples/r100v.pck
+
+test5: pa6
+	./pa6 examples/r1K.sp r1K.pck
+
+test6: pa6
+	./pa6 examples/r2K.sp r2K.pck
+
 clean:
 	rm -f *.o *.txt *.b valgrind.log pa6
 	clear
