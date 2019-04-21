@@ -23,6 +23,12 @@ typedef struct _Node2{
     int index2;
     struct _Node3 * rightof;
     struct _Node3 * above;
+    struct _Node3 * leftof; //Dont Need
+    struct _Node3 * below;  //Dont Need
+    double height;
+    double width;
+    double x;
+    double y;
 }Hash;
 
 typedef struct _Node3{
@@ -35,5 +41,6 @@ Node * loadFromFile(FILE * infile, int * numpoints);
 int * loadSEQ(FILE * INFILE, int numpoints);
 Hash ** Create_Hash(int * seqPair1, int * seqPair2, int numpoints);
 void Create_AdjList(Node * Head, Hash ** HashTable, int numpoints);
+void Find_Location(Hash ** HashTable, int * seqPair1, int * seqPair2, int numpoints);
 
 #endif

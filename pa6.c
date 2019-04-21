@@ -15,6 +15,7 @@ int main(int argc, char ** argv)
     int * seqPair2 = loadSEQ(infile, numpoints);
     Hash ** HashTable = Create_Hash(seqPair1, seqPair2, numpoints);
     Create_AdjList(head, HashTable, numpoints);
+    Find_Location(HashTable, seqPair1, seqPair2, numpoints);
     return EXIT_SUCCESS;
 }
 
