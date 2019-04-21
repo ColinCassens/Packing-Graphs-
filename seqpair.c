@@ -6,6 +6,7 @@
 /// \param seqPair2 : the vertical sequence pair
 void create_Graphs(Node * head, int numpoints, int * seqPair1, int * seqPair2)
 {
+    //Create Horiz Array Working
     //arrHoriz[0] is the top horizontal row
     //arrHoriz[1] is the bottom horizontal row
     Node * arrHoriz [2];
@@ -55,8 +56,7 @@ void create_Graphs(Node * head, int numpoints, int * seqPair1, int * seqPair2)
         i++;
     }
 
-
-    //CREATE THE VERTICAL ARRAY
+    //CREATE THE VERTICAL ARRAY Working
     Node ** arrVert = calloc((numpoints-2)/2, sizeof(Node));
     i = 1;
     int x = 0;
@@ -83,4 +83,6 @@ void create_Graphs(Node * head, int numpoints, int * seqPair1, int * seqPair2)
         i++;
         x++;
     }
+
+    //Packing based on which is in the largest order? How would it pack?
 }
