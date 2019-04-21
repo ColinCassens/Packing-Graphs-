@@ -18,9 +18,22 @@ typedef struct _Node{
     double width;
 }Node;
 
+typedef struct _Node2{
+    int index1;
+    int index2;
+    struct _Node3 * rightof;
+    struct _Node3 * above;
+}Hash;
+
+typedef struct _Node3{
+    struct _Node3 * next;
+    int value;
+}HolderNode;
+
 int main(int argc, char ** argv);
 Node * loadFromFile(FILE * infile, int * numpoints);
 int * loadSEQ(FILE * INFILE, int numpoints);
-void create_Graphs(Node * head, int numpoints, int * seqPair1, int * seqPair2);
+Hash ** Create_Hash(int * seqPair1, int * seqPair2, int numpoints);
+void Create_AdjList(Node * Head, Hash ** HashTable, int numpoints);
 
 #endif

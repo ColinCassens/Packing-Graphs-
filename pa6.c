@@ -13,7 +13,8 @@ int main(int argc, char ** argv)
     Node * head = loadFromFile(infile, &numpoints);
     int * seqPair1 = loadSEQ(infile, numpoints);
     int * seqPair2 = loadSEQ(infile, numpoints);
-    create_Graphs(head, numpoints, seqPair1, seqPair2);
+    Hash ** HashTable = Create_Hash(seqPair1, seqPair2, numpoints);
+    Create_AdjList(head, HashTable, numpoints);
     return EXIT_SUCCESS;
 }
 
