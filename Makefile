@@ -13,7 +13,7 @@ PA6: $(OBJS)
 	$(GCC) $(TESTFLAGS) -c $*.c
 
 VAL: pa6
-	$(VAL) ./pa6
+	$(VAL) ./pa6 examples/r8.sp r8.pck
 
 test1: pa6
 	./pa6 examples/r8.sp r8.pck

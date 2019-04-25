@@ -18,6 +18,7 @@ int main(int argc, char ** argv)
     Find_Location(HashTable, seqPair1, seqPair2, numpoints);
     FILE * outfile = fopen(argv[2], "w");
     writeToFile(outfile, HashTable, numpoints);
+    freeAll(head, HashTable, seqPair1, seqPair2, numpoints);
     fclose(outfile);
     fclose(infile);
     return EXIT_SUCCESS;
@@ -73,4 +74,43 @@ void writeToFile(FILE * outfile, Hash ** HashTable, int numpoints)
     for(int i = 1; i<=numpoints; i++){
         fprintf(outfile,"%d(%le,%le)\n", i, HashTable[i]->x, HashTable[i]->y);
     }
+}
+
+void freeAll(Node * head, Hash ** HashTable, int * seqPair1, int * seqPair2, int numpoints)
+{
+    free(seqPair1);
+    free(seqPair2);
+    Node * temp = head;
+    while(temp->next != NULL){
+        temp = temp->next;
+        free(head);
+        head = temp;
+    }
+    free(head);
+
+    free(HashTable[0]);
+    for(int x = 1; x<= numpoints; x++){
+        if(HashTable[x]->rightof != NULL){
+            HolderNode * temp1 = HashTable[x]->rightof;
+            HashTable[x]->rightof = NULL;
+            HolderNode * temp2 = temp1;
+            while(temp1 != NULL){
+                temp2 = temp1;
+                temp1 = temp1->next;
+                free(temp2);
+            }
+        }
+        if(HashTable[x]->above != NULL){
+            HolderNode * temp1 = HashTable[x]->above;
+            HashTable[x]->above = NULL;
+            HolderNode * temp2 = temp1;
+            while(temp1 != NULL){
+                temp2 = temp1;
+                temp1 = temp1->next;
+                free(temp2);
+            }
+        }
+        free(HashTable[x]);
+    }
+    free(HashTable);
 }
